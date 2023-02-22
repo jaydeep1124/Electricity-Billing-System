@@ -1,9 +1,11 @@
 {
     "java.project.sourcePaths": [
-        "src"
+        "src",
+        "lib"
     ],
     "java.project.outputPath": "bin",
     "java.project.referencedLibraries": [
-        "lib/**/*.jar"
+        "lib/**/*.jar",
+        "c:\\Users\\Dell\\Downloads\\rs2xml.jar"
     ]
 }

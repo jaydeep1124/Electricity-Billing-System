@@ -7,6 +7,8 @@ import java.awt.event.*;
 
 public class signup extends JFrame implements ActionListener {
     JButton create, backButton;
+    Choice accountype;
+    JTextField meter, userName, name, password;
     signup(){
         setSize(640, 350);
         setLocation(200, 400);
@@ -28,7 +30,7 @@ public class signup extends JFrame implements ActionListener {
         heading.setFont(new Font("Tahoma", Font.BOLD, 14));
         panel.add(heading);
 
-        Choice accountype = new Choice();
+        accountype = new Choice();
         accountype.add("Admin");
         accountype.add("Customer");
         accountype.setBounds(150,30,150,20); 
@@ -40,7 +42,7 @@ public class signup extends JFrame implements ActionListener {
         lblmeter.setFont(new Font("Tahoma", Font.BOLD, 14));
         panel.add(lblmeter);
 
-        JTextField meter = new JTextField();
+        meter = new JTextField();
         meter.setBounds(150,60,150,20);
         panel.add(meter);
 
@@ -50,7 +52,7 @@ public class signup extends JFrame implements ActionListener {
         lblusername.setFont(new Font("Tahoma", Font.BOLD, 14));
         panel.add(lblusername);
 
-        JTextField userName = new JTextField();
+        userName = new JTextField();
         userName.setBounds(150,90,150,20);
         panel.add(userName);
         setVisible(true);
@@ -61,7 +63,7 @@ public class signup extends JFrame implements ActionListener {
         lblname.setFont(new Font("Tahoma", Font.BOLD, 14));
         panel.add(lblname);
 
-        JTextField name = new JTextField();
+        name = new JTextField();
         name.setBounds(150,120,150,20);
         panel.add(name);
         
@@ -71,7 +73,7 @@ public class signup extends JFrame implements ActionListener {
         lblPassword.setFont(new Font("Tahoma", Font.BOLD, 14));
         panel.add(lblPassword);
 
-        JTextField password = new JTextField();
+        password = new JTextField();
         password.setBounds(150,150,150,20);
         panel.add(password);
 
@@ -104,7 +106,26 @@ public class signup extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == create) {
-       
+            String atype= accountype.getSelectedItem();
+            String suserName= userName.getText();
+            String sname= name.getText();
+            String spassword= password.getText();
+            String smeter= meter.getText();
+
+            try {
+                conn db = new conn();
+                String query = "insert into login values('"+smeter+"', '"+suserName+"', '"+sname+"', '"+spassword+"', '"+atype+"'))"; 
+                db.s.executeUpdate(query);
+
+                JOptionPane.showMessageDialog(null,"done");
+
+                setVisible(false);
+                new Login();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         } else if (ae.getSource() == backButton) {
             setVisible(false);
             
