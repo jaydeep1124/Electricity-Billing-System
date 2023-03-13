@@ -67,6 +67,24 @@ public class signup extends JFrame implements ActionListener {
         name.setBounds(150,120,150,20);
         panel.add(name);
         
+        meter.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent fe) {}
+            
+            @Override
+            public void focusLost(FocusEvent fe) {
+                try {
+                    Conn c  = new Conn();
+                    ResultSet rs = c.s.executeQuery("select * from login where meter_no = '"+meter.getText()+"'");
+                    while(rs.next()) {
+                        name.setText(rs.getString("name"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        
         JLabel lblPassword = new JLabel("Password:");
         lblPassword.setBounds(20,150,120,20);
         lblPassword.setForeground(Color.DARK_GRAY);
@@ -77,7 +95,22 @@ public class signup extends JFrame implements ActionListener {
         password.setBounds(150,150,150,20);
         panel.add(password);
 
-         create = new JButton("Create");
+          accountType.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent ae) {
+                String user = accountType.getSelectedItem();
+                if (user.equals("Customer")) {
+                    lblmeter.setVisible(true);
+                    meter.setVisible(true);
+                    name.setEditable(false);
+                } else {
+                    lblmeter.setVisible(false);
+                    meter.setVisible(false);
+                    name.setEditable(true);
+                }
+            }
+        });
+        
+        create = new JButton("Create");
         create.setBounds(40, 190, 100,20);
         create.setBackground(Color.BLACK);
         create.setForeground(Color.CYAN);
