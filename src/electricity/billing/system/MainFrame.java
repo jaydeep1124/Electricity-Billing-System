@@ -42,8 +42,9 @@ Thread t;
             new Login();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-        
+        }   
     }
-
+            public static void main(String[] args) {
+            new Splash();
+            }
 }
